@@ -39,7 +39,7 @@ class CartController extends Controller
         // Vérifier le stock
         if ($product->has_variants && $variantId) {
             $variant = ProductVariant::findOrFail($variantId);
-
+            dd($variant);
             if ($variant->stock_quantity < $quantity) {
                 return back()->with('error', 'Stock insuffisant pour cette variante.');
             }

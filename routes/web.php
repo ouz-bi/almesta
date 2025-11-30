@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 // Home - Page d'accueil Almesta
@@ -21,6 +22,11 @@ Route::post('/panier/ajouter/{product}', [CartController::class, 'add'])->name('
 Route::patch('/panier/{cart}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/panier/{cart}', [CartController::class, 'remove'])->name('cart.remove');
 Route::delete('/panier', [CartController::class, 'clear'])->name('cart.clear');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/address', [CheckoutController::class, 'storeAddress'])->name('checkout.address.store');
+Route::post('/checkout/process', [CheckoutController::class, 'processOrder'])->name('checkout.process');
+Route::get('/checkout/confirmation/{order}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
 
 // Routes wishlist (authentification requise)
 

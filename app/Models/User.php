@@ -89,4 +89,35 @@ class User extends Authenticatable
     {
         return $this->role === 'user';
     }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function shippingAddresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class)->where('type', 'shipping');
+    }
+
+    public function billingAddresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class)->where('type', 'billing');
+    }
+
+    public function defaultShippingAddress()
+    {
+        return $this->hasMany(UserAddress::class)
+            ->where('type', 'shipping')
+            ->where('is_default', true)
+            ->first();
+    }
+
+    public function defaultBillingAddress()
+    {
+        return $this->hasMany(UserAddress::class)
+            ->where('type', 'billing')
+            ->where('is_default', true)
+            ->first();
+    }
 }
