@@ -77,12 +77,11 @@ class CheckoutController extends Controller
      */
     public function processOrder(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'shipping_address_id' => 'required|exists:user_addresses,id',
             'billing_address_id' => 'required|exists:user_addresses,id',
             'payment_method' => 'required|in:card,paypal,bank_transfer',
-            'same_as_shipping' => 'boolean',
+            'same_as_shipping' => 'accepted',
             'notes' => 'nullable|string|max:1000'
         ]);
 
